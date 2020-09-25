@@ -1,0 +1,64 @@
+Arguments: 
+  /usr/bin/node /usr/share/yarn/bin/yarn.js install
+
+PATH: 
+  /home/pgalle/.local/bin:/home/pgalle/.cargo/bin:/home/pgalle/.local/bin:/home/pgalle/.cargo/bin:/home/pgalle/.poetry/bin:/home/pgalle/.cargo/bin:/home/pgalle/.poetry/bin:/home/pgalle/.cargo/bin:/home/pgalle/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/pgalle/Scripts/ChromeDriver:/home/pgalle/Scripts/geckodriver:/home/pgalle/Scripts:/home/pgalle/Scripts/chromedriver:/home/pgalle/Scripts/geckodriver:/home/pgalle/Scripts:/home/pgalle/Scripts/chromedriver:/home/pgalle/Scripts/geckodriver:/home/pgalle/Scripts
+
+Yarn version: 
+  1.22.5
+
+Node version: 
+  10.19.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/pgalle/Projects/ElectronSetup/package.json: Unexpected token } in JSON at position 757
+      at JSON.parse (<anonymous>)
+      at /usr/share/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/share/yarn/lib/cli.js:310:30)
+      at /usr/share/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+  	"name": "electron-rollup-boilerplate",
+  	"version": "1.0.0",
+  	"description": "this is a electron rollup project skeleton setup",
+  	"main": "dist/main.js",
+  	"keywords": [
+  		"electron",
+  		"rollup"
+  	],
+  	"author": {
+  		"name": "Pascal Galle"
+  	},
+  	"dependencies": {},
+  	"devDependencies": {
+  		"babel-core": "^6.26.0",
+  		"babel-plugin-external-helpers": "^6.22.0",
+  		"babel-preset-env": "^1.6.1",
+  		"electron": "~1.8.2",
+  		"electron-reloader": "^0.2.0",
+  		"rollup": "^0.56.3",
+  		"rollup-plugin-babel": "^3.0.3",
+  		"rollup-plugin-commonjs": "^8.2.6",
+  		"rollup-plugin-node-resolve": "^3.0.0",
+  		"rollup-plugin-uglify": "^2.0.1"
+  	},
+  	"scripts": {
+  		"start:dev": "rollup -c -w ",
+  		"start:electron": "electron .",
+  		"build": "rollup -c"
+  	},
+  	"files": [
+  		"build"
+  	],
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
