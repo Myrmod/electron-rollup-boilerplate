@@ -1,8 +1,8 @@
 import commonjs from '@rollup/plugin-commonjs'
 import copy from 'rollup-plugin-copy'
+import replace from '@rollup/plugin-replace'
 import typescript from '@rollup/plugin-typescript'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import replace from '@rollup/plugin-replace'
 
 export default [
    // electron
@@ -63,5 +63,5 @@ export default [
             'process.env.NODE_ENV': JSON.stringify('production')
          }),
       ]
-   }
+   },
 ]
