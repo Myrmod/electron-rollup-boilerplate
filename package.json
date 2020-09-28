@@ -36,7 +36,8 @@
       "start:dev": "rollup -c -w ",
       "start:electron": "electron .",
       "build": "rollup -c",
-      "package": "electron-builder"
+      "package": "electron-builder",
+      "lint": "tslint --fix -c ./tslint.json 'src/**/*{.js,.jsx,.ts,.tsx}'"
    },
    "files": [
       "build"
