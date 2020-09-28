@@ -8,15 +8,24 @@ export default [
    // electron
    {
       input: 'src/main.ts',
+      extensions: ['.ts', '.js'],
       output: [
          {
             file: 'build/main.js',
-            format: 'cjs',
-            sourcemap: true
+            format: 'esm',
+            sourcemap: true,
+            inlineDynamicImports: true
          },
       ],
       plugins: [
-         nodeResolve(),
+         nodeResolve({
+            modulesOnly: true,
+            customResolveOptions: {
+               paths: [
+                  'src',
+               ],
+            },
+         }),
          typescript(),
          commonjs({
             include: './node_modules/**',
@@ -30,7 +39,7 @@ export default [
    },
    // react
    {
-      input: 'src/react/index.tsx',
+      input: 'src/renderer/index.tsx',
       output: [
          {
             file: 'build/scripts.js',
@@ -39,6 +48,7 @@ export default [
             globals: [
                'react',
             ],
+            inlineDynamicImports: true
          },
       ],
       plugins: [
@@ -48,7 +58,7 @@ export default [
          commonjs({
             include: './node_modules/**',
          }),
-         nodeResolve(),
+         nodeResolve({ preferBuiltins: false }),
          replace({
             'process.env.NODE_ENV': JSON.stringify('production')
          }),
