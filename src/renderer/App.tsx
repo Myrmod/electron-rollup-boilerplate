@@ -1,10 +1,10 @@
-const { ipcRenderer } = window.require('electron');
-import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { allowDrop, drag, drop } from './util/dragging';
+const { ipcRenderer } = window.require('electron')
+import * as React from 'react'
+import { useEffect, useState } from 'react'
+import { allowDrop, drag, drop } from './util/dragging'
 
 export default function App(): JSX.Element {
-   const [data, setData] = useState<any>();
+   const [data, setData] = useState<any>()
 
    useEffect(
       () => {
@@ -14,8 +14,8 @@ export default function App(): JSX.Element {
           * @description listens for the 'initialPayload' event, triggered by the main process, and updates the current state accordingly.
           */
          ipcRenderer.on('initialPayload', (event: any, initialData: any) => {
-            console.log(initialData);
-         });
+            console.log(initialData)
+         })
 
          /**
           * @function requestUpdateWindow
@@ -23,36 +23,35 @@ export default function App(): JSX.Element {
           * @description listens for the 'request-update-window' event, triggered by the main process, and updates the current state accordingly.
           */
          ipcRenderer.on('request-update-window', (event: any, eventData: any) => {
-            console.log(eventData);
-            setData(eventData);
-         });
+            setData(eventData)
+         })
 
          document.addEventListener('drop', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
+            e.preventDefault()
+            e.stopPropagation()
 
             if (e.dataTransfer?.files) {
                for (let i = 0; i < e.dataTransfer.files.length; i++) {
-                  console.log('File Path of dragged files: ', e.dataTransfer.files.item(i));
+                  console.log('File Path of dragged files: ', e.dataTransfer.files.item(i))
                }
             }
-         });
+         })
 
          document.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-         });
+            e.preventDefault()
+            e.stopPropagation()
+         })
 
          document.addEventListener('dragenter', () => {
-            console.log('File is in the Drop Space');
-         });
+            console.log('File is in the Drop Space')
+         })
 
          document.addEventListener('dragleave', () => {
-            console.log('File has left the Drop Space');
-         });
+            console.log('File has left the Drop Space')
+         })
       },
       [],
-   );
+   )
 
    return (
       <main>
@@ -93,5 +92,5 @@ export default function App(): JSX.Element {
          </div>
          <div id='div2' onDrop={drop} onDragOver={allowDrop}></div>
       </main>
-   );
+   )
 }
