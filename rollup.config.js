@@ -8,7 +8,6 @@ export default [
    // electron
    {
       input: 'src/main.ts',
-      extensions: ['.ts', '.js'],
       output: [
          {
             file: 'build/main.js',

@@ -5,11 +5,12 @@
   - [Description](#description)
   - [default Dependencies](#default-dependencies)
   - [Installation](#installation)
-  - [Start](#start)
+  - [Development](#development)
     - [build everything at once](#build-everything-at-once)
     - [build our framework (react)](#build-our-framework-react)
     - [build our electron app](#build-our-electron-app)
     - [build our css](#build-our-css)
+  - [Create installer](#create-installer)
   - [automated Documentation](#automated-documentation)
   
 ## Description
@@ -24,7 +25,9 @@ In this boilerpalte you can integrate any web technology you like. On default we
 - @types/react-dom
 - better-docs
 - electron
-- electron-builder
+- electron-installer-windows
+- electron-installer-mac
+- electron-installer-linux
 - jsdoc
 - npm-run-all
 - react
@@ -43,7 +46,7 @@ just clone and run  in the project root
 yarn install && ln -s ./bin/pre-commit.sh .git/hooks/pre-commit
 ```
 
-## Start
+## Development
 We have a 3 part build process. The following commands will each trigger in watch mode.
 
 ### build everything at once
@@ -65,6 +68,14 @@ yarn start:electron
 ``` bash
 yarn start:css
 ```
+
+## Create installer
+For each platform (windows, mac and linux) we have a customizable process to create the corresponding installers. The process is mapped on the following commands:
+1. `yarn build`
+2. `yarn package:<PLATFORM>`
+3. `yarn create-installer:<PLATFORM>`
+
+This way you will get an installer of your choosen platform under `dist/installers`. To keep the installer size to a minimum, we have to be careful what we add to the dependencies of the `package.json`, because they will be directly included in the created installer.
 
 ## automated Documentation
 The following command will create simple typescript based documentation inside the directory `doc`.

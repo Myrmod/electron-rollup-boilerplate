@@ -31,7 +31,12 @@
       "no-duplicate-switch-case": true,
       "no-empty": true,
       "no-eval": true,
-      "no-implicit-dependencies": true,
+      "no-implicit-dependencies": [
+         true,
+         [
+            "electron"
+         ]
+      ],
       "no-invalid-template-strings": true,
       "no-invalid-this": true,
       "no-shadowed-variable": true,
