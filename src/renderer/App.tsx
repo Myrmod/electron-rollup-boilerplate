@@ -3,6 +3,13 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { allowDrop, drag, drop } from './util/dragging'
 
+/**
+ * @function App
+ * @category RendererProcess
+ * @example
+ * <main>your content</main>
+ * @description This component is the entry point of the rendering components
+ */
 export default function App(): JSX.Element {
    const [data, setData] = useState<any>()
 
@@ -10,17 +17,21 @@ export default function App(): JSX.Element {
       () => {
          /**
           * @function initialPayload
+          * @category RendererProcess
           * @type EventListener
+          * @event initialPayload
           * @description listens for the 'initialPayload' event, triggered by the main process, and updates the current state accordingly.
           */
          ipcRenderer.on('initialPayload', (event: any, initialData: any) => {
-            console.log(initialData)
+            console.info('initialPayload:', initialData)
          })
 
          /**
           * @function requestUpdateWindow
+          * @category RendererProcess
+          * @event request-update-window
           * @type EventListener
-          * @description listens for the 'request-update-window' event, triggered by the main process, and updates the current state accordingly.
+          * @description listens for the 'request-update-window' event, triggered by the main process inside this window, and updates the current state accordingly.
           */
          ipcRenderer.on('request-update-window', (event: any, eventData: any) => {
             setData(eventData)
@@ -32,7 +43,7 @@ export default function App(): JSX.Element {
 
             if (e.dataTransfer?.files) {
                for (let i = 0; i < e.dataTransfer.files.length; i++) {
-                  console.log('File Path of dragged files: ', e.dataTransfer.files.item(i))
+                  console.info('File Path of dragged files: ', e.dataTransfer.files.item(i))
                }
             }
          })
@@ -43,11 +54,11 @@ export default function App(): JSX.Element {
          })
 
          document.addEventListener('dragenter', () => {
-            console.log('File is in the Drop Space')
+            console.info('File is in the Drop Space')
          })
 
          document.addEventListener('dragleave', () => {
-            console.log('File has left the Drop Space')
+            console.info('File has left the Drop Space')
          })
       },
       [],
@@ -79,14 +90,6 @@ export default function App(): JSX.Element {
          >
             update data 2
          </button>
-         <h2
-            draggable='true'
-            onDragStart={drag}
-            style={{ display: 'inline-block' }}
-            id='asdf'
-         >
-            Pikachu
-         </h2>
          <div id='div1' onDrop={drop} onDragOver={allowDrop}>
             <span id='drag' draggable='true' onDragStart={drag}>{data?.message}</span>
          </div>

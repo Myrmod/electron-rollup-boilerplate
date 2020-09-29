@@ -6,17 +6,18 @@
          "closure"
       ]
    },
+   "recurseDepth": 10,
    "source": {
       "include": [
-         "src"
+         "src/renderer"
       ],
-      "includePattern": "\\.(jsx|js|ts|tsx)$",
-      "excludePattern": "(^|\\/|\\\\)_"
+      "includePattern": ".ts",
+      "excludePattern": ".styl"
    },
    "plugins": [
       "node_modules/better-docs/typescript",
       "node_modules/better-docs/category",
-      "node_modules/better-docs/component"
+      "plugins/markdown"
    ],
    "typescript": {
       "moduleRoot": "test"
@@ -31,5 +32,8 @@
       "destination": "docs",
       "recurse": true,
       "readme": "README.md"
+   },
+   "markdown": {
+      "idInHeadings": true
    }
 }

@@ -33,9 +33,7 @@
       "no-eval": true,
       "no-implicit-dependencies": [
          true,
-         [
-            "electron"
-         ]
+         "dev"
       ],
       "no-invalid-template-strings": true,
       "no-invalid-this": true,

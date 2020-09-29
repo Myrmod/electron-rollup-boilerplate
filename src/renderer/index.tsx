@@ -3,7 +3,9 @@ import * as ReactDOM from 'react-dom'
 import App from './App'
 
 /**
- * React application entry point
+ * @function RendererEntry
+ * @category RendererProcess
+ * @description React application entry point
  */
 ReactDOM.render(
    <App />,

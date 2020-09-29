@@ -1,11 +1,15 @@
-import electron, { app, BrowserWindow, ipcMain, ipcRenderer } from 'electron'
+import electron, { app, BrowserWindow, ipcMain } from 'electron'
 import path from 'path'
 import url from 'url'
 
 /**
- * TODO: has to be imported from somewhere else
- * @param display
- * @param settings
+ * @todo has to be imported from somewhere else
+ *
+ * @function createWindow
+ * @category MainProcess
+ * @param {electron.Display} display the monitors or displays found by electron
+ * @param {Electron.BrowserWindowConstructorOptions | undefined} settings the configuration for the displays from https://www.electronjs.org/docs/api/browser-window
+ * @param data {any} (optional) | the data that will be passed as initial payload to the created window
  */
 function createWindow(display: electron.Display, settings?: Electron.BrowserWindowConstructorOptions | undefined, data?: any) {
    const defaultSettings = {
@@ -31,6 +35,10 @@ function createWindow(display: electron.Display, settings?: Electron.BrowserWind
    // prevents overwriting of page
    window.on('page-title-updated', (e) => e.preventDefault())
 
+   window.webContents.on('dom-ready', () => {
+      window.webContents.send('initialPayload', data)
+   })
+
    return window
 }
 
@@ -38,37 +46,26 @@ function createWindow(display: electron.Display, settings?: Electron.BrowserWind
 // be closed automatically when the JavaScript object is garbage collected.
 const windows: Array<electron.BrowserWindow> = []
 
-// listen for app to be ready
+/**
+ * @function AppOnReady
+ * @category MainProcess
+ * @description listen for app to be ready so it can start the creation of the windows with their respective initial data payload.
+ */
 app.on('ready', () => {
    const displays = electron.screen.getAllDisplays()
 
    displays.map((display, index) => {
-      windows[index] = createWindow(display, {}, index)
+      windows[index] = createWindow(display, {}, { id: index })
       windows[index].setTitle(`window ${index}`)
-      windows[index].webContents.on('dom-ready', () => {
-         windows[index].webContents.send('initialPayload', { id: index })
-      })
    })
 })
 
-// Attach event listener to event that requests to update something in another window
-ipcMain.on(`request-update-window`, (event, data) => {
-   // Request to update the label in the renderer process of the second window
-   // We'll send the same data that was sent to the main process
-   // Note: you can obviously send the
-   console.log(data)
-
-   windows[data.id].webContents.send(`request-update-window`, data)
-})
 /**
- * for each window we add the update window eventlistener as well as the ability to dispatch such events
+ * @category MainProcess
+ * @event request-update-window
+ * @type EventListener
+ * @description listens for the request-update-window event coming from any open window and sends the same event to the requested window.
  */
-windows.map((window, index) => {
-   ipcRenderer.on(`request-update-window`, (event, data) => {
-      // data contains the data sent from the first view
-      console.log('ipcRenderer', data)
-
-      ipcRenderer.send('reply', `received ${data}`)
-   })
-   ipcRenderer.on('reply', (event, message) => console.log(message))
+ipcMain.on(`request-update-window`, (event, data) => {
+   windows[data.id].webContents.send(`request-update-window`, data)
 })
