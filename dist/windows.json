@@ -1,9 +1,0 @@
-{
-   "dest": "dist/installers",
-   "categories": [
-      "Utility"
-   ],
-   "lintianOverrides": [
-      "changelog-file-missing-in-native-package"
-   ]
-}
