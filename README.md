@@ -16,6 +16,8 @@
 ## Description
 In this boilerpalte you can integrate any web technology you like. On default we're using stylus and react separately with our electron & rollup setup.
 
+Hint: This repository needs some refactoring, sue at your own risk!
+
 ## default Dependencies
 - @rollup/plugin-commonjs
 - @rollup/plugin-node-resolve
